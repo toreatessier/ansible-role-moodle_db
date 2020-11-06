@@ -1,0 +1,70 @@
+---
+- name: Install python MYSQL packages
+  apt:
+    name: ['python3-pymysql', 'python-mysqldb']
+    state: present
+
+- name: Create mysql 'web' user with all privileges on all databases
+  mysql_user:
+    name: web
+    state: present
+    password: "{{ mysql_web_password }}"
+    encrypted: yes
+    priv: '*.*:ALL,GRANT'
+    host: "{{ moodle_1_ip }}"
+
+- name: Create mysql 'web' user with all privileges on all databases 2
+  mysql_user:
+    name: web
+    state: present
+    password: "{{ mysql_web_password }}"
+    encrypted: yes
+    priv: '*.*:ALL,GRANT'
+    host: "{{ moodle_2_ip }}"
+
+- name: Create mysql 'web' user with all privileges on all databases 3
+  mysql_user:
+    name: web
+    state: present
+    password: "{{ mysql_web_password }}"
+    encrypted: yes
+    priv: '*.*:ALL,GRANT'
+    host: "{{ moodle_3_ip }}"
+
+- name: Create mysql 'web' user with all privileges on all databases 4
+  mysql_user:
+    name: web
+    state: present
+    password: "{{ mysql_web_password }}"
+    encrypted: yes
+    priv: '*.*:ALL,GRANT'
+    host: "{{ moodle_4_ip }}"
+
+- name: Create mysql 'web' user with all privileges on all databases 5
+  mysql_user:
+    name: web
+    state: present
+    password: "{{ mysql_web_password }}"
+    encrypted: yes
+    priv: '*.*:ALL,GRANT'
+    host: "{{ moodle_5_ip }}"
+
+- name: restart mariadb service
+  systemd:
+    name: mariadb
+    state: restarted
+
+- name: Set mysql variables pt 1
+  mysql_variables:
+    variable: innodb_file_format
+    value: Barracuda
+  
+- name: Set mysql variables pt 2
+  mysql_variables:
+    variable: innodb_file_per_table
+    value: 1
+  
+- name: Set mysql variables pt 3
+  mysql_variables:
+    variable: innodb_large_prefix
+    value: 1
